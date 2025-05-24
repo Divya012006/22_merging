@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bigg Boss Voting Zone</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #B3B3B3;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: #7F7F7F;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .header h1 {
+      margin: 0;
+      color: black;
+    }
+    .timer {
+      font-size: 20px;
+      font-weight: bold;
+      color: 6C6868;
+    }
+    .container {
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .participant {
+      display: inline-block;
+      margin: 20px;
+      cursor: pointer;
+    }
+    .participant img {
+      width: 200px;
+      height: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .participant p {
+      font-size: 18px;
+      color: #000;
+      font-weight: bold;
+    }
+    .vote-box {
+      background-color: #ffddcc;
+      border: 2px solid #d35400;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+    .vote-button {
+      display: inline-block;
+      background-color: #e67e22;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .vote-button:hover {
+      background-color: #d35400;
+    }
+    .popup {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 2px solid #2ecc71;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: white;
+      display: none;
+    }
+    .popup img {
+      width: 100px;
+      height: 140px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Vote for Your Favorite Contestant</h1>
+    <div class="timer" id="timer">Voting Ends In: --:--:--</div>
+  </div>
+
+  <div class="container" id="contestants">
+    <!-- Participants will be loaded here -->
+  </div>
+
+  <div class="popup" id="popup">
+    <p id="popup-message"></p>
+    <img id="popup-image" src="" alt="Voted contestant">
+  </div>
+
+  <script>
+    // Countdown timer
+    const endTime = new Date().getTime() + 3600 * 1000; // 1 hour
+    const timerEl = document.getElementById("timer");
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = endTime - now;
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      timerEl.innerText = `Voting Ends In: ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+
+    // Contestants data
+    const contestants = [
+      {
+        name: "Aradhya Verma",
+        img: "https://img.freepik.com/premium-photo/young-beautiful-indian-girl-white-background_1000823-48412.jpg?w=2000"
+      },
+      {
+        name: "Meher Kulkarni",
+        img: "https://img.freepik.com/premium-photo/professional-indian-female-headshots-business-corporate-women_203363-204.jpg"
+      },
+      {
+        name: "Vivaan Kapoor",
+        img: "https://r2.erweima.ai/imgcompressed/img/compressed_bc3b9e2e7583717ff772a3ebc1faec48.webp"
+      },
+      {
+        name: "Raghavendra Joshi",
+        img: "https://www.shutterstock.com/image-photo/portrait-cheerful-indian-retired-old-260nw-1811789638.jpg"
+      },
+      {
+        name: "Reyansh Iyer",
+        img: "https://th.bing.com/th/id/OIP.Hg8VzNdcEo8x8aNNmJPbkwHaLH?w=186&h=279&c=7&r=0&o=7&cb=iwp2&dpr=1.6&pid=1.7&rm=3"
+      },
+      {
+        name: "Devprakash Mehta",
+        img: "https://th.bing.com/th/id/OIP.JWnOnTYKEDGZSageytSm6gHaOi?w=115&h=180&c=7&r=0&o=7&cb=iwp2&dpr=1.6&pid=1.7&rm=3"
+      },
+      {
+        name: "Diya Shetty",
+        img: "https://th.bing.com/th/id/OIP.ryLy_XL0rG5wDC_rUWJf5QHaLH?w=186&h=279&c=7&r=0&o=7&cb=iwp2&dpr=1.6&pid=1.7&rm=3"
+      },
+      {
+        name: "Saanvika Rao",
+        img: "https://th.bing.com/th/id/OIP.2a6u6Vuw76Y1VNmN2su-vQDJEs?w=186&h=278&c=7&r=0&o=7&cb=iwp2&dpr=1.6&pid=1.7&rm=3"
+      }
+    ];
+
+    // Load contestants
+    const container = document.getElementById("contestants");
+    contestants.forEach(person => {
+      const div = document.createElement("div");
+      div.className = "participant";
+      div.innerHTML = `
+        <img src="${person.img}" alt="Contestant ${person.name}">
+        <p>Contestant ${person.name}</p>
+        <div class="vote-box">
+          <a href="#" class="vote-button" onclick="vote('${person.name}', '${person.img}')">VOTE ME</a>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+
+    // Vote popup
+    function vote(name, img) {
+      const popup = document.getElementById("popup");
+      document.getElementById("popup-message").innerText = `Thanks for voting ${name}!`;
+      document.getElementById("popup-image").src = img;
+      popup.style.display = "block";
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 2500);
+    }
+  </script>
+
+</body>
+</html>
+
