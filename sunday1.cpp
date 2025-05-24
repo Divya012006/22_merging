@@ -31,7 +31,7 @@ int main()
     //if the year divided by 100,the remainder is not equal to zero, then it is a leap year----2
     //1 and 2 must obey 
     //if the year divided by 400,the remainder is equal to zero,then it is a leap year 
-    int year= 3444;
+    int year= 2026;
     if (year %4 != 0)
     {
         printf("this is a common year",year);
@@ -43,5 +43,19 @@ int main()
     return 0;
 }
 
-
+//THE BELOW PROGRAM REPRESENTS HOW TO APPLY IINCREMENT VALUE TO THE NUMBERS
+#include <stdio.h>
+int main()
+{
+    int i=4;
+    printf("%d\n", ++i);    // 5
+    printf("%d\n", i++);    // 5
+    printf("%d\n", i);      // 6
+    printf("%d\n", ++i);    // 7
+    printf("%d\n", i--);    // 7
+    printf("--i=%d\n",--i);    // 5
+    printf("--i=%d\n",--i);    // 4
+    printf("++i=%d\n",++i);    // 5
+    return 0;
+}
 
