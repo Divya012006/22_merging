@@ -1,0 +1,10 @@
+<html>
+<body>
+  <p id="para1">first paragraph.</p>
+  <button onclick="document.getElementById('para1').style.display='none'">Hide</button>
+
+
+  <p id="para2" style="display:none">second paragraph.</p>
+  <button onclick="document.getElementById('para2').style.display='block'">Reveal</button>
+</body>
+</html>
