@@ -24,4 +24,24 @@ int main()
     return 0;
 }
 
+#include <stdio.h>
+int main()
+{
+    //if the year divided by 04, the remainder is not equal to zero, then it is a common year----1
+    //if the year divided by 100,the remainder is not equal to zero, then it is a leap year----2
+    //1 and 2 must obey 
+    //if the year divided by 400,the remainder is equal to zero,then it is a leap year 
+    int year= 3444;
+    if (year %4 != 0)
+    {
+        printf("this is a common year",year);
+    }
+    else if (year% 100 != 0)
+    {
+        printf("this is a leap year", year);
+    }
+    return 0;
+}
+
+
 
