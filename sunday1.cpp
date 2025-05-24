@@ -1,10 +1,10 @@
 #include <stdio.h>
 int main()
 {
-    int a1=45;
-    int a2=584;
-    int a3=36;
-    int a4=890;
+    int a1=5674;
+    int a2=124;
+    int a3=73;
+    int a4=6;
     if(a1>a2 && a1>a3 && a1>a4)
     {
         printf("a1 is the greatest of all", a1);
@@ -23,3 +23,5 @@ int main()
     }
     return 0;
 }
+
+
